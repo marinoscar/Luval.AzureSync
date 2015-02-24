@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luval.AzureSync", "Luval.AzureSync\Luval.AzureSync.csproj", "{A89FACF9-3ED4-402E-9A8E-4B8FA873DFBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Luval.AzureSyncConsole", "Luval.AzureSyncConsole\Luval.AzureSyncConsole.csproj", "{54068787-4A31-4B6B-953A-A395EC4EB88A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A89FACF9-3ED4-402E-9A8E-4B8FA873DFBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A89FACF9-3ED4-402E-9A8E-4B8FA873DFBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A89FACF9-3ED4-402E-9A8E-4B8FA873DFBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A89FACF9-3ED4-402E-9A8E-4B8FA873DFBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54068787-4A31-4B6B-953A-A395EC4EB88A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54068787-4A31-4B6B-953A-A395EC4EB88A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54068787-4A31-4B6B-953A-A395EC4EB88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54068787-4A31-4B6B-953A-A395EC4EB88A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
