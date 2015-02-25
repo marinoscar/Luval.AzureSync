@@ -120,3 +120,5 @@ Code/Fd.WebUi/Content/Styles/app.styles.min.css
 *.chk
 *.jrs
 *.ide
+Code/Luval.AzureSyncConsole/Luval.AzureSyncConsole_TemporaryKey.pfx
+Code/Luval.AzureSyncConsole/Properties/app.manifest

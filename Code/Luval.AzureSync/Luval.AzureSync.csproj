@@ -64,6 +64,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="DirectorySync.cs" />
     <Compile Include="FileSync.cs" />
+    <Compile Include="HashProvider.cs" />
     <Compile Include="KeyReader.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

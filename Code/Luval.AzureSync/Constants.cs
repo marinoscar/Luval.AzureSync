@@ -14,5 +14,6 @@ namespace Luval.AzureSync
         public const string LocalMachineName = "localmachinename";
         public const string LocalFileSize = "localfilesize";
         public const string LocalOS = "localos";
+        public const string LocalHashCode = "localhashcode";
     }
 }

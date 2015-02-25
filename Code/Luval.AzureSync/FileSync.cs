@@ -93,7 +93,7 @@ namespace Luval.AzureSync
                 TryUpload();
                 return;
             }
-            TryDownload();
+            TryUpload();
         }
 
         public void TryDownload()
@@ -105,7 +105,7 @@ namespace Luval.AzureSync
             catch (Exception ex)
             {
 
-                _logger.WriteLine("Failed to download {0}", CloudFile.Name);
+                _logger.WriteLine("Failed to download {0}\n{1}", CloudFile.Name, ex.Message);
             }
         }
 
@@ -116,7 +116,7 @@ namespace Luval.AzureSync
             _logger.WriteLine("Downloading {0} ", CloudFile.Name);
             CloudFile.DownloadToFile(fileName, FileMode.OpenOrCreate);
             sw.Stop();
-            _logger.WriteLine("Finish {0} download in {1}", File.Name, sw.Elapsed);
+            _logger.WriteLine("Finish {0} download in {1}", CloudFile.Name, sw.Elapsed);
         }
 
         public void Upload()
@@ -170,7 +170,8 @@ namespace Luval.AzureSync
                     {Constants.LocalLastModifiedOn, File.LastWriteTimeUtc.Ticks.ToString()},
                     {Constants.LocalMachineName, Environment.MachineName},
                     {Constants.LocalFileSize, File.Length.ToString()},
-                    {Constants.LocalOS, Environment.OSVersion.ToString()}
+                    {Constants.LocalOS, Environment.OSVersion.ToString()},
+                    {Constants.LocalHashCode, HashProvider.Instance.GetHash(File.OpenRead())}
                 };
             return metaData;
         }
@@ -184,7 +185,7 @@ namespace Luval.AzureSync
         {
             var local = GetLocalFileMetadata();
             var cloud = CloudFile.Metadata;
-            return IsSameFile(local, cloud) && Convert.ToInt64(local[Constants.LocalLastModifiedOn]) == Convert.ToInt64(cloud[Constants.LocalLastModifiedOn]);
+            return IsSameFile(local, cloud) && local[Constants.LocalHashCode] == cloud[Constants.LocalHashCode];
         }
 
         public bool IsLocalNewer()
@@ -206,7 +207,7 @@ namespace Luval.AzureSync
             return cloud != null &&
                    cloud.ContainsKey(Constants.LocalRelativeFileName) &&
                    cloud[Constants.LocalRelativeFileName] == local[Constants.LocalRelativeFileName] &&
-                   cloud.ContainsKey(Constants.LocalLastModifiedOn);
+                   cloud.ContainsKey(Constants.LocalHashCode);
         }
 
         #endregion

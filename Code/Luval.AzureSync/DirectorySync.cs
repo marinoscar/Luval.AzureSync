@@ -93,6 +93,42 @@ namespace Luval.AzureSync
                               .ToList();
         }
 
+        public void DeleteAll()
+        {
+            Delete(CloudDirectory);
+        }
+
+        public void CleanAndDownload()
+        {
+            LocalClean();
+            Sync();
+        }
+
+        private void LocalClean()
+        {
+            LocalDirectory.GetDirectories("*.*", SearchOption.TopDirectoryOnly).ToList().ForEach(i => i.Delete(true));
+            LocalDirectory.GetFiles("*.*", SearchOption.TopDirectoryOnly).ToList().ForEach(i => i.Delete());
+        }
+
+        private void Delete(CloudFileDirectory directory)
+        {
+            var items = directory.ListFilesAndDirectories();
+            var files = items.OfType<CloudFile>().ToList();
+            var directories = items.OfType<CloudFileDirectory>().ToList();
+            foreach (var cloudFile in files)
+            {
+                _logger.WriteLine("Deleting file {0}", cloudFile.Name);
+                cloudFile.Delete();
+            }
+            foreach (var dir in directories)
+            {
+                Delete(dir);
+            }
+            _logger.WriteLine("Deleting directory {0}", directory.Name);
+            if(directory.Parent != null)
+                directory.Delete();
+        }
+
         public void Sync()
         {
             _fileScheduler.RunAsync = RunAsync;
