@@ -93,6 +93,11 @@ namespace Luval.AzureSync
                 TryUpload();
                 return;
             }
+            if (IsCloudNewer())
+            {
+                TryDownload();
+                return;
+            }
             TryUpload();
         }
 
@@ -185,7 +190,9 @@ namespace Luval.AzureSync
         {
             var local = GetLocalFileMetadata();
             var cloud = CloudFile.Metadata;
-            return IsSameFile(local, cloud) && local[Constants.LocalHashCode] == cloud[Constants.LocalHashCode];
+            var sameHash = local[Constants.LocalHashCode] == cloud[Constants.LocalHashCode];
+            if(!sameHash) _logger.WriteLine("Different hash codes");
+            return IsSameFile(local, cloud) && sameHash;
         }
 
         public bool IsLocalNewer()
@@ -206,7 +213,7 @@ namespace Luval.AzureSync
         {
             return cloud != null &&
                    cloud.ContainsKey(Constants.LocalRelativeFileName) &&
-                   cloud[Constants.LocalRelativeFileName] == local[Constants.LocalRelativeFileName] &&
+                   cloud[Constants.LocalRelativeFileName].ToLowerInvariant() == local[Constants.LocalRelativeFileName].ToLowerInvariant() &&
                    cloud.ContainsKey(Constants.LocalHashCode);
         }
 
